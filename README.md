@@ -5,14 +5,15 @@ This project implements a **Naive Bayes classifier from scratch (with Laplace sm
 ---
 
 ## 📂 Project Structure
-├── play_tennis.csv # dataset
-├── naive_bayes.py # Naive Bayes implementation
-├── test_cases.py # test examples
-├── README.md # documentation
+- 📄 play_tennis.csv      # Training dataset
+- 🐍 naive_bayes.py       # Core classifier implementation
+- 🧪 test_cases.py        # Prediction examples & validation
+
 
 ---
 
 ## 📊 Dataset
+
 The dataset describes weather conditions and whether tennis was played:
 
 | Outlook   | Temp  | Humidity | Wind   | Play |
@@ -24,30 +25,29 @@ The dataset describes weather conditions and whether tennis was played:
 
 ---
 
-## 🧮 Naive Bayes Formula
+## 🧮 Mathematical Foundation
 
-We use:
+### Naive Bayes Formula
 
-\[
-P(Play \mid X) \propto P(Play) \times \prod_i P(X_i \mid Play)
-\]
+The classifier uses Bayes' theorem with the "naive" independence assumption:
 
-Where \(X\) = {Outlook, Temp, Humidity, Wind}.  
-Laplace smoothing is applied:
+$$
+P(Play|X) \propto P(Play) \times \prod_{i} P(X_i|Play)
+$$
 
-\[
-P(feature \mid class) = \frac{count(feature, class) + 1}{count(class) + K}
-\]
+Where:
+-   `X` = {Outlook, Temperature, Humidity, Wind}
+-   `P(Play)` is the class prior probability.
+-   `P(Xᵢ|Play)` is the feature likelihood given the class.
+  
+### Laplace Smoothing
 
-- \(K\) = number of categories in the feature.
+To handle zero probabilities, we apply additive (Laplace) smoothing:
 
----
+$$
+P(feature|class) = \frac{\text{count}(feature, class) + \alpha}{\text{count}(class) + \alpha \times K}
+$$
 
-## ▶️ Run the Code
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/yourusername/naive-bayes-play-tennis.git
-   cd naive-bayes-play-tennis
-2. Run test cases:
-   python test_cases.py
+Where:
+-   `α = 1` (smoothing parameter)
+-   `K` = number of unique values for the feature
