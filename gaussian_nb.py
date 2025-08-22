@@ -1,5 +1,4 @@
 import numpy as np
-from collections import defaultdict
 
 class GaussianNB:
     def __init__(self):
